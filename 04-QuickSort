@@ -1,0 +1,39 @@
+class Solution {
+    public void quickSort(int[] arr, int lb, int ub) {
+        if (lb < ub) {
+            int index = partition(arr, lb, ub);
+            quickSort(arr, lb, index - 1);
+            quickSort(arr, index + 1, ub);
+        }
+    }
+
+    private int partition(int[] arr, int lb, int ub) {
+        int i = lb, j = ub, pivot = arr[lb], n = arr.length;
+
+        while (true) {
+            while (i < n && arr[i] <= pivot) {
+                i++;
+            }
+
+            while (j >= 0 && arr[j] > pivot) {
+                j--;
+            }
+
+            if (i < j) {
+                swap(arr, i, j);
+            } else if (i > j) {
+                break;
+            }
+        }
+        // if i>j => Swap Pivot(arr[lb]) and arr[j]
+        swap(arr, lb, j);
+
+        return j; // index of pivot element
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
