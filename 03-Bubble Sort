@@ -1,0 +1,92 @@
+//Traditional Bubble Sort
+
+class Solution {
+    public void bubbleSort(int arr[]) {
+        for (int i = 1; i < arr.length; i++) {// For No. of Passes
+            for (int j = 0; j < (arr.length - 1); j++) {// For No. of Comparisons
+                if (arr[j] > arr[j + 1]) {
+                    // Swapping
+                    swap(arr, j, j + 1);
+                }
+            }
+        }
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+// Optimised Bubble Sort
+
+class Solution {
+    public void bubbleSort(int arr[]) {
+        for (int i = 1; i < arr.length; i++) {
+            boolean swap = false;
+            for (int j = 0; j < (arr.length - i); j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap = true;
+                    // Swapping
+                    swap(arr, j, j + 1);
+                }
+            }
+
+            if (!swap) {
+                break;
+            }
+        }
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+// Recurssive Implementation of Bubble Sort
+/*
+ * How to implement it recursively?
+ * Recursive Bubble Sort has no performance/implementation advantages, but can
+ * be a good question to check one’s understanding of Bubble Sort and recursion.
+ * If we take a closer look at Bubble Sort algorithm, we can notice that in
+ * first pass, we move largest element to end (Assuming sorting in increasing order).
+ * In second pass, we move second largest element to second last position and so
+ * on.
+ */
+
+class Solution {
+    public void bubbleSort(int arr[]) {
+        bubbleSort(arr, arr.length);
+    }
+
+    private void bubbleSort(int arr[], int n) {
+        if (n == 1) {
+            return;
+        }
+
+        boolean swap = false;
+
+        for (int j = 0; j < (n - 1); j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap = true;
+                // Swapping
+                swap(arr, j, j + 1);
+            }
+        }
+
+        if (!swap) {
+            return;
+        }
+
+        bubbleSort(arr, n - 1);
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
