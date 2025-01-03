@@ -1,0 +1,62 @@
+/*
+ Counting sort is efficient if the range of input data is not significantly greater than the number of objects to be sorted. 
+ Consider the situation where the input sequence is between range 1 to 10K and the data is 10, 5, 10K, 5K. 
+*/
+
+//will only work for +ve integers
+
+class Solution {
+    public void countingSort(int[] arr) {
+        int max = findMaxInArray(arr);
+
+        int[] count = new int[max + 1];
+        int[] result = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            count[arr[i]]++;
+        }
+
+        for (int i = 1; i < (max + 1); i++) {
+            count[i] += count[i - 1];
+        }
+
+        for (int i = (arr.length - 1); i >= 0; i--) {
+            result[--count[arr[i]]] = arr[i];
+        }
+
+        System.arraycopy(result, 0, arr, 0, arr.length);
+    }
+
+    private int findMaxInArray(int[] arr) {
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        return Math.max(arr[0], findMaxInArray(Arrays.copyOfRange(arr, 1, arr.length)));
+    }
+}
+
+// for characters
+
+class Solution {
+    public String countSort(String str) {
+        char[] arr = str.toCharArray();
+        char[] result = new char[arr.length];
+        int[] count = new int[26];
+
+        for (int i = 0; i < arr.length; i++) {
+            count[arr[i] - 'a']++;
+        }
+
+        for (int i = 1; i < 26; i++) {
+            count[i] += count[i - 1];
+        }
+
+        for (int i = (arr.length - 1); i >= 0; i--) {
+            result[--count[arr[i] - 'a']] = arr[i];
+        }
+
+        System.arraycopy(result, 0, arr, 0, arr.length);
+
+        return new String(arr);
+    }
+}
